@@ -1,0 +1,46 @@
+.Nav-logo{
+    position: relative;
+    height: 30px;
+    width: 80px;
+}
+.update{
+    content: url("https://icon-library.net/images/mail-icon-png/mail-icon-png-6.jpg");
+    height: 30px;
+    width: 25px;
+    padding-top: 5px;
+    z-index: 1;
+}
+.dropdown1 {
+    -webkit-box-shadow: 1px 5px 11px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 1px 5px 11px 0px rgba(0,0,0,0.39);
+    box-shadow: 1px 5px 11px 0px rgba(0,0,0,0.39);
+    z-index: 1;
+}
+.navleft {
+    padding-left: 90px;
+}
+.dropdownlist1{
+    margin: 0px;
+    padding: 0px;
+    padding-left: 25px; 
+    list-style: none;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    font-size: 15px;
+    text-decoration: none;
+    display: block;
+    background-color: white;
+    color: rgb(102, 101, 101);
+}
+.dropdownlist1:hover {
+    background-color: rgba(96, 173, 218, 0.753);
+}
+ul li .dropdown1 {
+    display: none;
+}
+ul li:hover .dropdown1 {
+    position: absolute;
+    display: block;
+}

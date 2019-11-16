@@ -1,0 +1,56 @@
+{
+  "name": "workflow",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "@google-cloud/bigtable": "^2.2.3",
+    "firebase": "^7.0.0",
+    "gmail-send": "^1.8.10",
+    "input-moment": "^0.4.0",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
+    "nodemailer": "^6.3.1",
+    "react": "^16.10.2",
+    "react-autocomplete": "^1.8.1",
+    "react-collapsible": "^2.6.0",
+    "react-collapsible-component": "^1.1.8",
+    "react-confirm-alert": "^2.4.1",
+    "react-dom": "^16.10.1",
+    "react-frame-component": "^4.1.1",
+    "react-redux": "^5.1.1",
+    "react-redux-firebase": "^2.2.4",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.1.2",
+    "react-select": "^3.0.8",
+    "react-thai-address": "^1.0.2",
+    "react-thailand-address-autocomplete": "^0.0.6",
+    "react-thailand-address-typeahead": "^1.0.1",
+    "react-to-print": "^2.5.0",
+    "reactstrap": "^8.1.1",
+    "redux": "^4.0.4",
+    "redux-firestore": "^0.9.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
