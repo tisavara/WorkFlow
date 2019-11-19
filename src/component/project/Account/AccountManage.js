@@ -64,7 +64,7 @@ class AccountManage extends Component {
                         </div>
                         <div className="col s12 m6">
                             <h5 className="center">สถานะ</h5>
-                            <AccountDetail ID={this.state.branchId} />
+                            <AccountDetail ID={this.state.branchId} profile={profile} />
                         </div>
                     </div>
                 </div>

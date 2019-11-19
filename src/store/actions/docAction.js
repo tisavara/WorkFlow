@@ -29,6 +29,21 @@ export const sendCost = (detail) => {
     }
 }
 
+export const notiCost = (detail) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore()
+        firestore.collection('notifications').add({
+            content: " Open cost center " + detail.business + " " + detail.name ,
+            time: new Date(),
+            user: detail.user
+        }).then(() => {
+            dispatch({ type: 'SEND_COST_SUCCESS' })
+        }).catch(err => {
+            dispatch({ type: 'SEND_COST_ERROR', err })
+        })
+    }
+}
+
 export const sendInsure = (detail) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore()

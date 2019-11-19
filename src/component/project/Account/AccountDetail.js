@@ -2,19 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
-import { sendCost } from '../../../store/actions/docAction'
+import { sendCost, notiCost } from '../../../store/actions/docAction'
 
 class AccountDetail extends Component {
     state = {
         status: ''
     }
     render() {
-        const { ID, branch } = this.props
+        const { ID, branch, profile } = this.props
+        console.log(profile)
         let style1
         let text1
         let style2
         let text2
-        let typing
 
         if (ID != '') {
             if (branch.statusCost == 'sendCost' || branch.statusCost == 'Success') {
@@ -57,10 +57,14 @@ class AccountDetail extends Component {
                             <button className={"btn waves-effect waves-light right " + style2} onClick={() => {
                                 this.setState({
                                     status: 'Success',
-                                    ID:ID
+                                    ID:ID,
+                                    business: branch.Branch.Type.label,
+                                    name: branch.Branch.Name,
+                                    user: profile.firstName + " " + profile.lastName
                                 }, () => {
                                     console.log(this.state)
                                     this.props.sendCost(this.state)
+                                    this.props.notiCost(this.state)
                                 })
                             }}>{text2}</button>
                         </div>
@@ -88,7 +92,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispachToProps = (dispatch) => {
     return {
-        sendCost: (detail) => dispatch(sendCost(detail))
+        sendCost: (detail) => dispatch(sendCost(detail)),
+        notiCost: (detail) => dispatch(notiCost(detail))
     }
 }
 

@@ -18,7 +18,7 @@ const SignInLinks = (props) => {
                         </NavLink>
                     </li>
                     <li>
-                        <div style={{width: 150}} ><NavLink className="btn btn-floating blue lighten-1"to='/'> 
+                        <div style={{width: 150}} ><NavLink className="btn btn-floating blue lighten-1" to='/'> 
                         { props.profile.initials } </NavLink></div>
                         <div className="dropdown1">
                             <Link to='/editprofile' className="dropdownlist1">edit profile</Link>
