@@ -5,6 +5,13 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { Link } from "react-router-dom";
 
 const DownloadDetail = ({detail, branch}) => {
+
+    let insure
+    if (branch.statusCost === 'Success'){
+        insure = <Link to={"/docinsure/"+ "download/" + detail} key={"download", detail}>Download</Link>
+    }else {
+        insure = " "
+    }
     return (
         <div>
             <mapStateToProps ownProps={detail} />
@@ -26,7 +33,7 @@ const DownloadDetail = ({detail, branch}) => {
                         <tr>
                             <td>2</td>
                             <td>ขอทำประกัน</td>
-                            <td><a>Download</a></td>
+                            <td>{insure}</td>
                         </tr>
                         <tr>
                             <td>3</td>

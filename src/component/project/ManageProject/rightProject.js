@@ -33,6 +33,32 @@ const Right = ({ ID, branch }) => {
       Branchlogo =
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjctozRMRjUD5N_9UwDcLyWpAqdAI9KsI9mBNh9-_ujv6yvke7&s";
     }
+
+    let status1 = ""
+    let style1 = ""
+    let status2 = ""
+    let style2 = ""
+    let status3 = ""
+    let style3 = ""
+    let status4 = ""
+    let style4 = ""
+    if (branch) {
+      if (branch.statusCost == 'noCost') {
+        status1 = "บัญชีกำลังดำเนินการ..."
+        style1 = "orange-text"
+      }else if (branch.statusCost == 'sendCost') {
+        status1 = "Shared Service กำลังดำเนินการ..."
+        style1 = "orange-text"
+      }else if (branch.statusCost == 'Success') {
+        status1 = "เสร็จสิ้น"
+        style1 = "green-text"
+        status2 = <Link to={"/docinsure/"+ "insure/" + ID} key={"insure", ID}>ทำเอกสาร</Link>
+        status3 = <Link to={"/doctel/"+ "tel/" + ID} key={"tel", ID}>ทำเอกสาร</Link>
+        status4 = <Link to={"/docchange/"+ "change/" + ID} key={"change", ID}>ทำเอกสาร</Link>
+      }else {
+        status1 = <Link to={"/docopen/"+ "open/" + ID} key={"open", ID}>ทำเอกสาร</Link>
+      }
+    }
     return (
       <div className="card-panel hoverable">
         <div className="row">
@@ -45,128 +71,25 @@ const Right = ({ ID, branch }) => {
           </div>
         </div>
 
-        <CollapsibleComponent>
-          <CollapsibleHead className="blue">เปิด Cost center</CollapsibleHead>
-          <CollapsibleContent>
-            <div className="row">
-              <div className="col">ส่งเอกสารขอเปิด Cost center</div>
-              <div className="col right"><Link to={"/docopen/"+ "open/" + ID} key={"open", ID}>ทำเอกสาร</Link></div>
-            </div>
+        <div className="row">
+          <div className="col">เปิด Cost center</div>
+          <div className={"col right " + style1}>{status1}</div>
+        </div>
 
-            <div className="row">
-              <div className="col">บัญชีส่งเอกสารให้กับ Share service</div>
-              <div className="col right"></div>
-            </div>
+        <div className="row">
+          <div className="col">ทำประกัน</div>
+          <div className={"col right " + style2}>{status2}</div>
+        </div>
 
-            <div className="row">
-              <div className="col">
-                Share service ดำเนินการออกเลข Cost center เสร็จสิ้น
-              </div>
-              <div className="col right"></div>
-            </div>
-          </CollapsibleContent>
+        <div className="row">
+          <div className="col">เบิกโทรศัพท์</div>
+          <div className={"col right " + style2}>{status3}</div>
+        </div>
 
-          <div className="divider"></div>
-          <CollapsibleHead className=" blue darken-3">ทำประกัน</CollapsibleHead>
-          <CollapsibleContent>
-            <div className="row">
-              <div className="col">ส่งเอกสารขอทำประกัน</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">ประกันออก Memo และ หนังสือส่งให้ กจก.</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">บริษัทประกันออกใบแจ้งหนี้และกรมธรรม์</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                ประกันออก Memo ค่าเบี้ยประกันแนบหนังสือส่งให้ กจก.
-              </div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">บัญชีส่งเอกสารให้กับ Share service</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">Share service ออกเชคส่งให้ประกัน</div>
-              <div className="col right"></div>
-            </div>
-          </CollapsibleContent>
-
-          <div className="divider"></div>
-          <CollapsibleHead className="blue">เบิกโทรศัพท์</CollapsibleHead>
-          <CollapsibleContent>
-            <div className="row">
-              <div className="col">ส่งเอกสารขอเบิกโทรศัพท์</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">ผู้จัดการฝ่ายพิจารณา</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">บริหารส่วนกลางจัดสรรโทรศัพท์</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">ผู้จัดการเขตรับโทรศัพท์</div>
-              <div className="col right"></div>
-            </div>
-          </CollapsibleContent>
-
-          <div className="divider"></div>
-          <CollapsibleHead className=" blue darken-3">
-            เบิกเงินสำรองทอน
-          </CollapsibleHead>
-          <CollapsibleContent>
-            <div className="row">
-              <div className="col">ส่งเอกสารขอเบิกเงินสำรองทอน</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">ผู้จัดการฝ่ายพิจารณา</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">รคป. พิจารณา</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">กจก. พิจารณา</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">บัญชีส่งเอกสารให้กับ Share service</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">Share service โอนเงินให้กับผู้จัดการเขต</div>
-              <div className="col right"></div>
-            </div>
-
-            <div className="row">
-              <div className="col">ผู้จัดการเขตรับเงินสำรองทอน</div>
-              <div className="col right"></div>
-            </div>
-          </CollapsibleContent>
-        </CollapsibleComponent>
+        <div className="row">
+          <div className="col">เบิกเงินสำรองทอน</div>
+          <div className={"col right " + style2}>{status4}</div>
+        </div>
       </div>
     );
   } else {

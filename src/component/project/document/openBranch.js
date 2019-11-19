@@ -5,7 +5,6 @@ import { compose } from "redux";
 import moment from "moment";
 import ReactToPrint from "react-to-print";
 import { sendEmail } from '../../../store/actions/docAction'
-import { withRouter, Router } from "react-router-dom"
 
 class openBranch extends Component {
   state = {
@@ -14,11 +13,15 @@ class openBranch extends Component {
   render() {
     const { branch, user, email } = this.props;
     const name = this.props.match.params.name
+
     let button
+    let icon
     if (name == "open") {
-      button = <i class="material-icons left">send</i> + "Send"
+      button = "Send"
+      icon = "send"
     }else if (name == "download") {
       button = "Download"
+      icon = "file_download"
     }
     
     if (branch && user && email) {
@@ -32,7 +35,7 @@ class openBranch extends Component {
                 <ReactToPrint 
                   trigger={() => 
                     <button class="waves-effect waves-light btn">
-                      {button}
+                      <i class="material-icons left">{icon}</i>{button}
                     </button>
                   }
                   content={() => this.opentoprint}
@@ -46,10 +49,10 @@ class openBranch extends Component {
                       Cost: branch.Branch.Cost
                     }, () => {
                       if (name == "open") {
-                        this.props.sendEmail(this.state)
+                        this.props.sendEmail(this.state) 
                         this.props.history.goBack()
                       }else if (name == "download") {
-                        this.props.history.goBack()
+                        this.props.history.push('/download')
                       }
                     })
                   }}
@@ -100,9 +103,11 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
   const branchs = state.firestore.data.branchs;
   const branch = branchs ? branchs[id] : null;
+
   const Bch = branch ? branch.Users.Id : null;
   const users = Bch ? state.firestore.data.users : null;
   const user = users ? users[Bch] : null;
+
   const EID = '8NzZ9Eb49NNUJZ6OuYtY'
   const emails = state.firestore.data.email
   const email = emails ? emails[EID]: null

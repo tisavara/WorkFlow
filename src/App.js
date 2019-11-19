@@ -20,7 +20,10 @@ import Footer from "./component/layout/Footer";
 import Renovate from "./component/project/EditProject/renovate";
 import Relocate from "./component/project/EditProject/relocate";
 import EmailUserToAccount from "./component/project/Email/emailUserToAccount";
-import AccountManage from "./component/project/AccountManage";
+import AccountManage from "./component/project/Account/AccountManage";
+import Insurance from "./component/project/document/Insurance";
+import Telephone from "./component/project/document/telephone";
+import ChangeMoney from "./component/project/document/changeMoney";
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
       <Switch>
         <Route path="/docopen/:name/:id" component={openBranch} />
         <Route path="/emailUTA" component={EmailUserToAccount} />
+        <Route path="/docinsure/:name/:id" component={Insurance} />
+        <Route path="/doctel/:name/:id" component={Telephone} />
+        <Route path="/docchange/:name/:id" component={ChangeMoney} />
         <Route component={Dash} />
       </Switch>
     </BrowserRouter>

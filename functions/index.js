@@ -15,9 +15,7 @@ exports.sendEmail = functions.firestore.document('orders/{orderId}').onCreate((s
                   <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
                   <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
                   <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
-                  
-                  <p>ดำเนินการเสร็จสิ้น?</p>
-                  <iframe></iframe>
+                  <a href="http://localhost:3000/"><button>อนุมัติสาขา</button></a>
               </p>`
   }
 

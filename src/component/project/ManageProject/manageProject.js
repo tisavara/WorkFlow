@@ -34,20 +34,31 @@ class Now extends Component {
 
               {branchs &&
                 branchs.map((branch, i) => {
+
+                  let Status
+                  let style
+                  if(branch.statusCost) {
+                    Status = "เปิด Cost center"
+                    style='red'
+                    if (branch.statusCost === 'Success') {
+                      Status = "เปิด Cost center สำเร็จ!!"
+                    }
+                  }else {
+                    Status = "ยังไม่ได้เปิด Cost center"
+                  }
+
+                  const j = i+1
                   return (
-                    <div>
-                      <a
-                        value={this.state.check}
-                        className="collection-item blue-text"
-                        onClick={e => {
-                          e.preventDefault();
+                    <div className="inputGroup">
+                      <input id={branch.Branch.Name} name="option" type="radio" onClick={() => {
                           this.setState({
                             branchId: branch.id
                           });
-                        }}
-                      >
-                        {i}.  {branch.Branch.Name}
-                      </a>
+                        }} />
+                      <label for={branch.Branch.Name}>
+                        <span className="left">{j}. {branch.Branch.Name}</span>
+                        <span className="right" style={{ marginRight: 40, color: style, fontSize: 13 }}>{Status}</span>
+                      </label>
                     </div>
                   );
                 })}
