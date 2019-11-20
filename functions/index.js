@@ -83,8 +83,8 @@ exports.sendEmail = functions.firestore.document('orders/{orderId}').onCreate((s
     port: 465,
     secure: true,
     auth: {
-      user: 'tisavara.somboon@gmail.com',
-      pass: 'Chertam2102'
+      user: '',
+      pass: ''
     }
   })
 
