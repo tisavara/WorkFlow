@@ -2,8 +2,14 @@ export const sendEmail = (detail) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore()
         firestore.collection('orders').add({
-            ...detail,
-            createAt: new Date()
+            Cost: detail.Cost,
+            branchId: detail.branchId,
+            branchName: detail.branchName,
+            business: detail.business,
+            content: detail.content,
+            createAt: new Date(),
+            email: detail.email,
+            name: detail.name
         }).then(() => {
             return firestore.collection('branchs').doc(detail.branchId).update({
                 statusCost: 'noCost'
@@ -17,6 +23,30 @@ export const sendEmail = (detail) => {
 }
 
 export const sendCost = (detail) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore()
+        firestore.collection('orders').add({
+            Cost: detail.Cost,
+            branchId: detail.branchId,
+            branchName: detail.branchName,
+            business: detail.business,
+            content: detail.content,
+            createAt: new Date(),
+            email: detail.email,
+            name: detail.name
+        }).then(() => {
+            return firestore.collection('branchs').doc(detail.branchId).update({
+                statusCost: 'sendCost'
+            })
+        }).then(() => {
+            dispatch({ type: 'SEND_COST_SUCCESS' })
+        }).catch(err => {
+            dispatch({ type: 'SEND_COST_ERROR', err })
+        })
+    }
+}
+
+export const costSuccess = (detail) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore()
         firestore.collection('branchs').doc(detail.ID).update({
@@ -37,9 +67,9 @@ export const notiCost = (detail) => {
             time: new Date(),
             user: detail.user
         }).then(() => {
-            dispatch({ type: 'SEND_COST_SUCCESS' })
+            dispatch({ type: 'SEND_NOTI_SUCCESS' })
         }).catch(err => {
-            dispatch({ type: 'SEND_COST_ERROR', err })
+            dispatch({ type: 'SEND_NOTI_ERROR', err })
         })
     }
 }
@@ -47,10 +77,65 @@ export const notiCost = (detail) => {
 export const sendInsure = (detail) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore()
-        firestore.collection('branchs').add({}).then(() => {
+        firestore.collection('orders').add({
+            ...detail,
+            createAt: new Date()
+        }).then(() => {
+            return firestore.collection('branchs').doc(detail.branchId).update({
+                statusInsure: 'noInsure'
+            })
+        }).then(() => {
             dispatch({ type: 'SEND_INSURE_SUCCESS' })
         }).catch(err => {
             dispatch({ type: 'SEND_INSURE_ERROR', err })
+        })
+    }
+}
+
+export const sendTel = (detail) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore()
+        firestore.collection('orders').add({
+            Cost: detail.Cost,
+            branchId: detail.branchId,
+            branchName: detail.branchName,
+            business: detail.business,
+            content: detail.content,
+            createAt: new Date(),
+            email: detail.email,
+            name: detail.name
+        }).then(() => {
+            return firestore.collection('branchs').doc(detail.branchId).update({
+                statusTel: 'sendTel'
+            })
+        }).then(() => {
+            dispatch({ type: 'SEND_TEL_SUCCESS' })
+        }).catch(err => {
+            dispatch({ type: 'SEND_TEL_ERROR', err })
+        })
+    }
+}
+
+export const sendViceTel = (detail) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore()
+        firestore.collection('orders').add({
+            Cost: detail.Cost,
+            branchId: detail.branchId,
+            branchName: detail.branchName,
+            business: detail.business,
+            content: detail.content,
+            createAt: new Date(),
+            email: detail.email,
+            name: detail.name
+        }).then(() => {
+            return firestore.collection('branchs').doc(detail.branchId).update({
+                statusTel: 'Success'
+            })
+        }).then(() => {
+            dispatch({ type: 'SEND_TEL_SUCCESS' })
+        }).catch(err => {
+            dispatch({ type: 'SEND_TEL_ERROR', err })
         })
     }
 }

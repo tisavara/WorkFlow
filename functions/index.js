@@ -5,18 +5,77 @@ admin.initializeApp(functions.config().firebase);
 const nodemailer = require('nodemailer')
 
 exports.sendEmail = functions.firestore.document('orders/{orderId}').onCreate((snap, context) => {
-  const mailOptions = {
-    from: '59010539@kmitl.ac.th',
-    to: snap.data().email,
-    subject: snap.data().content,
-    html: `<h1>${snap.data().content} ${snap.data().branchName}</h1>
-              <p>
-                  <h3><b>ธุรกิจ: </b>${snap.data().business}</h3>
-                  <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
-                  <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
-                  <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
-                  <a href="http://localhost:3000/"><button>อนุมัติสาขา</button></a>
-              </p>`
+  let mailOptions
+  if (snap.data().content === 'เปิดสาขา') {
+    mailOptions = {
+      from: '59010539@kmitl.ac.th',
+      to: snap.data().email,
+      subject: snap.data().content,
+      html: `<h1>${snap.data().content} ${snap.data().branchName}</h1>
+                <p>
+                    <h3><b>ธุรกิจ: </b>${snap.data().business}</h3>
+                    <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
+                    <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
+                    <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
+                    <a href="http://localhost:3000/accountmanage"><button>ตรวจสอบเอกสาร</button></a>
+                </p>`
+    }
+  }else if (snap.data().content === 'เปิด Cost center') {
+    mailOptions = {
+      from: '59010539@kmitl.ac.th',
+      to: snap.data().email,
+      subject: snap.data().content,
+      html: `<h1>${snap.data().content} ${snap.data().branchName}</h1>
+                <p>
+                    <h3><b>ธุรกิจ: </b>${snap.data().business}</h3>
+                    <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
+                    <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
+                    <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
+                    <a href="http://localhost:3000/costcenter/${snap.data().branchId}"><button>ดาว์นโหลดเอกสาร</button></a>
+                </p>`
+    }
+  }else if (snap.data().content === 'ทำประกันสาขาใหม่') {
+    mailOptions = {
+      from: '59010539@kmitl.ac.th',
+      to: snap.data().email,
+      subject: snap.data().content,
+      html: `<h1>${snap.data().content} ${snap.data().branchName}</h1>
+                <p>
+                    <h3><b>ธุรกิจ: </b>${snap.data().business}</h3>
+                    <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
+                    <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
+                    <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
+                    <a href="http://localhost:3000"><button>ตรวจสอบเอกสาร</button></a>
+                </p>`
+    }
+  }else if ( snap.data().content === 'เบิกโทรศัพท์') {
+    mailOptions = {
+      from: '59010539@kmitl.ac.th',
+      to: snap.data().email,
+      subject: snap.data().content,
+      html: `<h1>${snap.data().content} ${snap.data().branchName}</h1>
+                <p>
+                    <h3><b>ธุรกิจ: </b>${snap.data().business}</h3>
+                    <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
+                    <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
+                    <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
+                    <a href="http://localhost:3000/doctel/check/${snap.data().branchId}"><button>อนุมัติเอกสาร</button></a>
+                </p>`
+    }
+  }else if ( snap.data().content === 'เบิกโทรศัพท์ บท.') {
+    mailOptions = {
+      from: '59010539@kmitl.ac.th',
+      to: snap.data().email,
+      subject: snap.data().content,
+      html: `<h1>${snap.data().content} ${snap.data().branchName}</h1>
+                <p>
+                    <h3><b>ธุรกิจ: </b>${snap.data().business}</h3>
+                    <h3><b>ชื่อสาขา: </b>${snap.data().branchName}</h3>
+                    <h3><b>เลข Cost center: </b>${snap.data().Cost}</h3>
+                    <h3><b>ผู้จัดการเขต: </b>${snap.data().name}</h3>
+                    <a href="http://localhost:3000/doctel/download/${snap.data().branchId}"><button>อนุมัติเอกสาร</button></a>
+                </p>`
+    }
   }
 
   var transporter = nodemailer.createTransport({

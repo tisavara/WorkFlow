@@ -24,16 +24,20 @@ import AccountManage from "./component/project/Account/AccountManage";
 import Insurance from "./component/project/document/Insurance";
 import Telephone from "./component/project/document/telephone";
 import ChangeMoney from "./component/project/document/changeMoney";
+import CostCenter from "./component/project/document/CostCenter";
+import openCost from "./component/project/document/openCost";
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/docopen/:name/:id" component={openBranch} />
+        <Route path="/docopencost/:name/:id" component={openCost} />
         <Route path="/emailUTA" component={EmailUserToAccount} />
         <Route path="/docinsure/:name/:id" component={Insurance} />
         <Route path="/doctel/:name/:id" component={Telephone} />
         <Route path="/docchange/:name/:id" component={ChangeMoney} />
+        <Route path="/costcenter/:id" component={CostCenter} />
         <Route component={Dash} />
       </Switch>
     </BrowserRouter>

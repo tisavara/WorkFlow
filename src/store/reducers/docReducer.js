@@ -26,6 +26,20 @@ const DocReducer = (state = initState, action) => {
             console.log('send insure error')
             console.log(action.err.message)
             return state
+        case 'SEND_NOTI_SUCCESS':
+            console.log('sent notification success')
+            return state
+        case 'SEND_NOTI_ERROR':
+            console.log('send notification error')
+            console.log(action.err.message)
+            return state
+        case 'SEND_TEL_SUCCESS':
+            console.log('sent tel success')
+            return state
+        case 'SEND_TEL_ERROR':
+            console.log('send notification error')
+            console.log(action.err.message)
+            return state
         default :
             return state
     }

@@ -4,13 +4,14 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import ReactToPrint from "react-to-print";
 import moment from "moment";
+import { sendInsure } from '../../../store/actions/docAction'
 
 class Insurance extends Component {
     state = {
         content: 'ทำประกันสาขาใหม่'
     }
     render() {
-        const { branch, user, vice } = this.props
+        const { branch, user, vice, email } = this.props
 
         const name = this.props.match.params.name
         let button
@@ -23,7 +24,7 @@ class Insurance extends Component {
         icon = "file_download"
         }
 
-        if(branch && user && vice) {
+        if(branch && user && vice && email) {
             return (
                 <div>
                     <InsureToPrint branchs={branch} user={user} vice={vice} ref={el => (this.insureToPrint = el)} />
@@ -39,7 +40,21 @@ class Insurance extends Component {
                                 }
                                 content={() => this.insureToPrint}
                                 onAfterPrint={() => {
-                                    this.props.history.goBack()
+                                    this.setState({
+                                        branchId: this.props.match.params.id,
+                                        email: email.emailInsure,
+                                        name: user.titleThai + ' ' + user.firstThai + ' ' + user.lastThai,
+                                        business: branch.Branch.Type.label,
+                                        branchName: branch.Branch.Name,
+                                        Cost: branch.Branch.Cost
+                                    }, () => {
+                                        if (name == "insure") {
+                                            this.props.sendInsure(this.state) 
+                                            this.props.history.push('/now')
+                                          }else if (name == "download") {
+                                            this.props.history.push('/download')
+                                          } 
+                                    })
                                 }}
                                 />
                             </div>
@@ -97,14 +112,25 @@ const mapStateToProps = (state, ownProps) => {
     const viceId = branch ? branch.Vice: null
     const vices = viceId ? state.firestore.data.vice: null
     const vice = vices ? vices[viceId]: null
+
+    const emailID = '8NzZ9Eb49NNUJZ6OuYtY'
+    const emails = state.firestore.data.email
+    const email = emails ? emails[emailID]: null
     return {
         branch: branch,
         user: user,
-        vice: vice
+        vice: vice,
+        email: email
     }
 }
 
-export default compose( firestoreConnect([{ collection: 'branchs' }, { collection: "users" }, { collection: "email" }, { collection: 'vice' }]), connect(mapStateToProps))(Insurance)
+const mapDispatchToProps = (dispatch) => {
+    return {
+      sendInsure: (detail) => dispatch(sendInsure(detail))
+    }
+  }
+
+export default compose( firestoreConnect([{ collection: 'branchs' }, { collection: "users" }, { collection: "email" }, { collection: 'vice' }]), connect(mapStateToProps, mapDispatchToProps))(Insurance)
 
 class InsureToPrint extends Component {
     render() {

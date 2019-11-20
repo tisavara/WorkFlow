@@ -43,16 +43,21 @@ const Right = ({ ID, branch }) => {
     let status4 = ""
     let style4 = ""
     if (branch) {
-      if (branch.statusCost == 'noCost') {
+      if (branch.statusCost === 'noCost') {
         status1 = "บัญชีกำลังดำเนินการ..."
         style1 = "orange-text"
-      }else if (branch.statusCost == 'sendCost') {
+      }else if (branch.statusCost === 'sendCost') {
         status1 = "Shared Service กำลังดำเนินการ..."
         style1 = "orange-text"
-      }else if (branch.statusCost == 'Success') {
+      }else if (branch.statusCost === 'Success') {
         status1 = "เสร็จสิ้น"
         style1 = "green-text"
-        status2 = <Link to={"/docinsure/"+ "insure/" + ID} key={"insure", ID}>ทำเอกสาร</Link>
+        if (branch.statusInsure === 'noInsure') {
+          status2 = "ประกันกำลังดำเนินการ..."
+          style2 = "orange-text"
+        }else {
+          status2 = <Link to={"/docinsure/"+ "insure/" + ID} key={"insure", ID}>ทำเอกสาร</Link>
+        }
         status3 = <Link to={"/doctel/"+ "tel/" + ID} key={"tel", ID}>ทำเอกสาร</Link>
         status4 = <Link to={"/docchange/"+ "change/" + ID} key={"change", ID}>ทำเอกสาร</Link>
       }else {

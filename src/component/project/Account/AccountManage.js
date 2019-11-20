@@ -10,18 +10,19 @@ class AccountManage extends Component {
         branchId: ''
     }
     render() {
+        const history = this.props.history
         const { branchs, auth, profile } =  this.props
         let title1 = <h5 className="center">สาขาที่ต้องเปิดเลข Cost center</h5>
         let title2 = <h5 className="center">สาขาที่เปิดเลข Cost center แล้ว</h5>
         if (!auth.uid) return <Redirect to="/signin" />
-        if (profile.status != 'Accout') return <Redirect to="/" />
 
         if (branchs) {
+            if (profile.status != 'Accout') return <Redirect to="/" />
             return (
                 <div className="container">
                     <h3>จัดการสาขา</h3>
                     <div className="row">
-                        <div className="col s12 m6">
+                        <div className="col s4">
                             {  title1 }
                             { branchs && branchs.map((branch, i) => {
                                 if (branch.statusCost && branch.statusCost !== 'Success') {
@@ -30,7 +31,7 @@ class AccountManage extends Component {
                                     if (branch.statusCost === 'noCost') {
                                         Status = "ยังไม่ได้เปิดเลข Cost center"
                                     }else if (branch.statusCost === 'sendCost') {
-                                        Status = "ยังไม่ได้รับเลข Cost center จาก Shared service"
+                                        Status = "เลข Cost center ยังใช้ไม่ได้"
                                     }
                                     return (
                                         <div className="inputGroup">
@@ -45,7 +46,9 @@ class AccountManage extends Component {
                                     )
                                 }
                             }) }
-                            { title2 }
+                        </div>
+                        <div className="col s4">
+                        { title2 }
                             { branchs && branchs.map((branch, i) => {
                                 if (branch.statusCost === 'Success') {
                                     return (
@@ -62,9 +65,9 @@ class AccountManage extends Component {
                                 }
                             }) }
                         </div>
-                        <div className="col s12 m6">
+                        <div className="col s4">
                             <h5 className="center">สถานะ</h5>
-                            <AccountDetail ID={this.state.branchId} profile={profile} />
+                            <AccountDetail ID={this.state.branchId} history={history} profile={profile} />
                         </div>
                     </div>
                 </div>

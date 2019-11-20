@@ -15,9 +15,9 @@ class Now extends Component {
     const ID = this.state.branchId;
 
     if (!auth.uid) return <Redirect to="/signin" />
-    if (profile.status == 'Accout' || profile.status == 'Insure') return <Redirect to="/" />
 
     if (branchs) {
+      if (profile.status == 'Accout' || profile.status == 'Insure') return <Redirect to="/" />
       return (
         <div className="container">
           <h3>สาขาปัจจุบัน</h3>
@@ -42,6 +42,9 @@ class Now extends Component {
                     style='red'
                     if (branch.statusCost === 'Success') {
                       Status = "เปิด Cost center สำเร็จ!!"
+                      if (branch.statusInsure === 'noInsure') {
+                        Status = "ประกัน กำลังดำเนินการ"
+                      }
                     }
                   }else {
                     Status = "ยังไม่ได้เปิด Cost center"

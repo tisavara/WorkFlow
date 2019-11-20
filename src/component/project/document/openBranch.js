@@ -8,20 +8,30 @@ import { sendEmail } from '../../../store/actions/docAction'
 
 class openBranch extends Component {
   state = {
-    content: 'เปิดสาขา'
+    content: 'เปิดสาขา',
+    checkname: '',
+    err: ''
   }
   render() {
-    const { branch, user, email } = this.props;
+    const { branch, user, email, profile } = this.props;
     const name = this.props.match.params.name
+    const id = this.props.match.params.id
 
     let button
     let icon
-    if (name == "open") {
+    let check
+    if (name === "open") {
       button = "Send"
       icon = "send"
-    }else if (name == "download") {
+      check = " "
+    }else if (name === "download") {
       button = "Download"
       icon = "file_download"
+      check = " "
+    }else if (name === "check") {
+      button = "checked"
+      icon = "check_circle"
+      check = <div className="col"><input placeholder="ลงชื่อ" onChange={(e) => {this.setState({checkname: e.target.value})}} /></div>
     }
     
     if (branch && user && email) {
@@ -31,6 +41,7 @@ class openBranch extends Component {
           <br />
           <div className="container">
             <div className="row">
+              <span style={{color: 'red'}} className="left">{ this.state.err }</span> { check }
               <div className="col">
                 <ReactToPrint 
                   trigger={() => 
@@ -41,18 +52,26 @@ class openBranch extends Component {
                   content={() => this.opentoprint}
                   onAfterPrint={() => {
                     this.setState({
-                      branchId: this.props.match.params.id,
+                      branchId: id,
                       email: email.emailAccount,
                       name: user.titleThai + ' ' + user.firstThai + ' ' + user.lastThai,
                       business: branch.Branch.Type.label,
                       branchName: branch.Branch.Name,
                       Cost: branch.Branch.Cost
                     }, () => {
-                      if (name == "open") {
+                      if (name === "open") {
                         this.props.sendEmail(this.state) 
                         this.props.history.goBack()
-                      }else if (name == "download") {
-                        this.props.history.push('/download')
+                      }else if (name === "download") {
+                        this.props.history.goBack()
+                      } else if (name === "check") {
+                        if (this.state.checkname === profile.firstThai) {
+                          this.props.history.push('/docopencost/' + 'check/' + id)
+                        }else {
+                          this.setState({
+                            err: 'ชื่อผิด'
+                          })
+                        }
                       }
                     })
                   }}
@@ -114,7 +133,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     branch: branch,
     user: user,
-    email: email
+    email: email,
+    profile: state.firebase.profile
   };
 };
 

@@ -7,10 +7,25 @@ import { Link } from "react-router-dom";
 const DownloadDetail = ({detail, branch}) => {
 
     let insure
+    let tel
+    let change
     if (branch.statusCost === 'Success'){
         insure = <Link to={"/docinsure/"+ "download/" + detail} key={"download", detail}>Download</Link>
+        tel = <Link>Download</Link>
+        change = <Link>Download</Link>
     }else {
         insure = " "
+        tel = " "
+        change = " "
+    }
+
+    let insure1
+    let insure2
+    let insure3
+    if (branch.statusInsure) {
+        insure1 = <Link>Download</Link>
+        insure2 = <Link>Download</Link>
+        insure3 = <Link>Download</Link>
     }
     return (
         <div>
@@ -38,12 +53,12 @@ const DownloadDetail = ({detail, branch}) => {
                         <tr>
                             <td>3</td>
                             <td>เบิกโทรศัพท์</td>
-                            <td><a>Download</a></td>
+                            <td>{tel}</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>เบิกเงินสำรองทอน</td>
-                            <td><a>Download</a></td>
+                            <td>{change}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,12 +75,12 @@ const DownloadDetail = ({detail, branch}) => {
                         <tr>
                             <td>1</td>
                             <td>เปิด Cost center</td>
-                            <td><a>Download</a></td>
+                            <td><Link to={"/docopencost/"+ "download/" + detail}>Download</Link></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>เบิกเงินสำรองทอน</td>
-                            <td><a>Download</a></td>
+                            <td>{change}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,22 +97,22 @@ const DownloadDetail = ({detail, branch}) => {
                         <tr>
                             <td>1</td>
                             <td>Memo ทำประกัน</td>
-                            <td><a>Download</a></td>
+                            <td>{insure1}</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>หนังสือทำประกัน</td>
-                            <td><a>Download</a></td>
+                            <td>{insure2}</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Memo ค่าเบี้ยประกัน</td>
-                            <td><a>Download</a></td>
+                            <td>{insure3}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <table className="striped">
+                {/* <table className="striped">
                     <thead>
                         <tr>
                             <th width="100">#อื่นๆ</th>
@@ -112,7 +127,7 @@ const DownloadDetail = ({detail, branch}) => {
                             <td><a>Download</a></td>
                         </tr>
                     </tbody>
-                </table>
+                </table> */}
 
         </div>
     )

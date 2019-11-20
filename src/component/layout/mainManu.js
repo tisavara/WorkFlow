@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 const MainManu = (props) => {
     
     const { profile } = props
-    if (profile.status == 'User') {
+    if (profile.status === 'User') {
         return (
             <div className="navleft">
             <ul>
@@ -23,7 +23,7 @@ const MainManu = (props) => {
             </ul>
         </div>
         )
-    }else if (profile.status == 'Accout' || profile.status == 'Insure'){
+    }else if (profile.status === 'Accout' || profile.status === 'Insure'){
         return (
             <div className="navleft">
                 <ul>
