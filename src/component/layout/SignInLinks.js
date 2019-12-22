@@ -8,7 +8,7 @@ import './Navbar.css'
 const SignInLinks = (props) => {
     const { auth, profile } = props
 
-    if(profile.status != 'Admin'){
+    if(profile.status !== 'Admin'){
         return (
             <div>
                 <ul className="right">

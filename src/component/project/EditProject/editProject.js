@@ -9,7 +9,7 @@ class EditProject extends Component {
   render() {
     const { branchs, auth, profile } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-    if (profile.status == 'Accout' || profile.status == 'Insure') return <Redirect to="/" />
+    if (profile.status === 'Accout' || profile.status === 'Insure') return <Redirect to="/" />
 
     if (branchs) {
       return (

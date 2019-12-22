@@ -10,7 +10,7 @@ class ManageMem extends Component {
     render() {
         const { users, auth, profile } = this.props
         if (!auth.uid) return <Redirect to="/signin" />
-        if (profile.status != 'Admin') return <Redirect to="/" />
+        if (profile.status !== 'Admin') return <Redirect to="/" />
         return (
             <div className="container row">
                 <SignUp />

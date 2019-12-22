@@ -10,7 +10,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import rootReducer from "./store/reducers/rootReducer";
 import fbConfig from "./confic/fbConfig";
-
+import '../node_modules/react-thailand-address-typeahead/dist/styles.css'
 
 const store = createStore(
   rootReducer,
