@@ -82,7 +82,7 @@ export const sendInsure = (detail) => {
             createAt: new Date()
         }).then(() => {
             return firestore.collection('branchs').doc(detail.branchId).update({
-                statusInsure: 'noInsure'
+                statusInsure: 'Success'
             })
         }).then(() => {
             dispatch({ type: 'SEND_INSURE_SUCCESS' })

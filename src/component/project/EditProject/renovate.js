@@ -13,7 +13,8 @@ class Renovate extends Component {
             endDate: '',
             endTime: '',
             SCB: '',
-            cursor: false
+            cursor: false,
+            error: ''
         }
     }
 
@@ -27,18 +28,24 @@ class Renovate extends Component {
         const { email } = this.props
         if (this.state.SCB === '') {
             this.setState({
-                SCB: email.emailSCB
+                SCB: email.emailSCB,
+                error: ""
             })
         }
         this.setState({
             cursor: true
-        }, () => console.log(this.state))
+        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state);
-        
+        if (this.state.cursor === true) {
+            console.log(this.state);
+        } else {
+            this.setState({
+                error: "Don't forget to check mail"
+            })
+        }
     }
 
     render() {
@@ -47,7 +54,7 @@ class Renovate extends Component {
         if (email) {
             return (
                 <div className="container">
-                    <form className="card-panel hoverable" onSubmit={ this.handleSubmit }>
+                    <form className="card-panel hoverable" onSubmit={this.handleSubmit}>
                         <h3>Renovate</h3>
                         <h5 align="center">เลือกระยะเวลาปิด Renovate</h5>
 
@@ -75,9 +82,12 @@ class Renovate extends Component {
 
                         <div className="row">
                             <div className="col s2"><h6 className="right">E-mail SCB</h6></div>
-                            <div className="col s8"><input id="SCB" onChange={this.handleChange} defaultValue={email.emailSCB} /></div>
-                            <div className="col s2">
-                                <i style={{ cursor: 'pointer' }} className={ this.state.cursor ? "material-icons green-text" :"material-icons blue-text"} onClick={this.handleEmail}>assignment_turned_in</i>
+                            <div className="col s6"><input id="SCB" onChange={this.handleChange} defaultValue={email.emailSCB} /></div>
+                            <div className="col s1">
+                                <i style={{ cursor: 'pointer' }} className={this.state.cursor ? "material-icons green-text" : "material-icons blue-text"} onClick={this.handleEmail}>assignment_turned_in</i>
+                            </div>
+                            <div className="col s3">
+                                <span style={{ color: 'red' }}>{this.state.error}</span>
                             </div>
                         </div>
 

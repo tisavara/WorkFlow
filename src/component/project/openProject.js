@@ -81,8 +81,13 @@ class openProject extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.openAction(this.state)
-        this.props.history.push('/now')
+        if (this.state.field === '' || this.state.type === '' || this.state.employer === '' || this.state.deposit === '' || this.state.Address === '' || this.state.Area === '' || this.state.Vice === '') {
+            alert('คุณยังกรอกข้อมูลไม่ครบ')
+        } else {
+            console.log(this.state)
+            this.props.openAction(this.state)
+            this.props.history.push('/now')
+        }
     }
 
     UpValue = e => this.setState({ v: +e.target.value })
@@ -103,7 +108,6 @@ class openProject extends Component {
     render() {
 
         const { auth, vices, areas, profile } = this.props
-        console.log(this.state);
 
         if (!auth.uid) return <Redirect to="/" />
 
@@ -265,6 +269,7 @@ class openProject extends Component {
                                     placeholder="สายงาน**"
                                     options={สายงาน}
                                     onChange={this.handleSelectField}
+                                    required
                                 />
                             </div>
                         </div>
@@ -287,6 +292,7 @@ class openProject extends Component {
                                     placeholder="ผู้ว่าจ้าง**"
                                     options={Employer}
                                     onChange={this.handleSelectEmployer}
+                                    required
                                 />
                             </div>
                         </div>
@@ -294,14 +300,14 @@ class openProject extends Component {
                         <div className="col s3">
                             <div className="input-field">
                                 <label htmlFor="name" className="red-text">ชื่อสาขา**</label>
-                                <input type="text" id="name" onChange={this.handleChang} />
+                                <input type="text" id="name" onChange={this.handleChang} required />
                             </div>
                         </div>
 
                         <div className="col s3">
                             <div className="input-field">
                                 <label htmlFor="code" className="red-text">รหัสสาขา**ห้ามใส่ F,H,D</label>
-                                <input type="text" id="code" maxlength={coder} onChange={this.handleChang} />
+                                <input type="text" id="code" maxlength={coder} onChange={this.handleChang} required />
                             </div>
                         </div>
 
@@ -312,6 +318,7 @@ class openProject extends Component {
                                     placeholder="วิธีการนำฝาก**"
                                     options={วิธีการนำฝาก}
                                     onChange={this.handleSelectDeposit}
+                                    required
                                 />
                             </div>
                         </div>
@@ -326,7 +333,7 @@ class openProject extends Component {
                         <div className="col s3">
                             <div className="input-field">
                                 <label htmlFor="sale" className="red-text">ยอดขายโดยประมาณ**</label>
-                                <input type="number" id="sale" onChange={this.UpValue} placeholder={unit} />
+                                <input type="number" id="sale" onChange={this.UpValue} placeholder={unit} required />
                             </div>
                         </div>
                         <div className="col s3">
@@ -344,15 +351,15 @@ class openProject extends Component {
                             </div>
                         </div>
 
-                        { bank }
+                        {bank}
 
                     </div>
 
                     <div className="divider"></div>
 
                     <h3 className="">ที่อยู่</h3>
-                    <textarea onChange={this.handleChangAddress} />
-                    <AddressFormTypeahead onAddressSelected={(addressObject) => this.setState({ Address: addressObject })} />
+                    <textarea onChange={this.handleChangAddress} required />
+                    <AddressFormTypeahead required onAddressSelected={(addressObject) => this.setState({ Address: addressObject })} />
 
                     <div className="divider"></div>
 
@@ -365,7 +372,7 @@ class openProject extends Component {
                         <div className="col s3">
                             <span className="red-text">**</span>
 
-                            <Select placeholder="ชื่อ**"
+                            <Select placeholder="ชื่อ**" required
                                 options={vices && vices.map(vice => {
                                     return {
                                         value: vice.id,
@@ -380,7 +387,7 @@ class openProject extends Component {
                         </div>
                         <div className="col s3">
                             <span className="red-text">**</span>
-                            <Select placeholder="ชื่อ**"
+                            <Select placeholder="ชื่อ**" required
                                 options={areas && areas.map(area => {
                                     return {
                                         value: area.id,

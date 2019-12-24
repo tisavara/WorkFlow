@@ -61,7 +61,7 @@ class Telephone extends Component {
                                     }else if (name === "download") {
                                         this.props.history.goBack()
                                     }else if (name === "check") {
-                                        if (this.state.checkname === vice.firstThai) {
+                                        if (this.state.checkname === vice.Thainame) {
                                             this.setState({
                                                 content: 'เบิกโทรศัพท์ บท.',
                                                 branchId: id,
@@ -72,7 +72,6 @@ class Telephone extends Component {
                                                 Cost: branch.Branch.Cost
                                             }, () => {
                                                 this.props.sendViceTel(this.state)
-                                                this.props.history.goBack()
                                             })
                                         }else {
                                             this.setState({

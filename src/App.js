@@ -37,7 +37,7 @@ function App() {
         <Route path="/docinsure/:name/:id" component={Insurance} />
         <Route path="/doctel/:name/:id" component={Telephone} />
         <Route path="/docchange/:name/:id" component={ChangeMoney} />
-        <Route path="/costcenter/:id" component={CostCenter} />
+        <Route path="/costcenter/:name/:id" component={CostCenter} />
         <Route component={Dash} />
       </Switch>
     </BrowserRouter>

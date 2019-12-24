@@ -52,14 +52,30 @@ const Right = ({ ID, branch }) => {
       }else if (branch.statusCost === 'Success') {
         status1 = "เสร็จสิ้น"
         style1 = "green-text"
-        if (branch.statusInsure === 'noInsure') {
-          status2 = "ประกันกำลังดำเนินการ..."
-          style2 = "orange-text"
+
+        if (branch.statusInsure === 'Success') {
+          status2 = "เสร็จสิ้น"
+          style2 = "green-text"
         }else {
           status2 = <Link to={"/docinsure/"+ "insure/" + ID} key={"insure", ID}>ทำเอกสาร</Link>
         }
-        status3 = <Link to={"/doctel/"+ "tel/" + ID} key={"tel", ID}>ทำเอกสาร</Link>
-        status4 = <Link to={"/docchange/"+ "change/" + ID} key={"change", ID}>ทำเอกสาร</Link>
+
+        if (branch.statusTel === 'Success') {
+          status3 = "เสร็จสิ้น"
+          style3 = "green-text"
+        }else if (branch.statusTel === 'sendTel'){
+          status3 = "รอการอนุมัติจาก ผู้จัดการฝ่าย..."
+          status3 = "orange-text"
+        }else {
+          status3 = <Link to={"/doctel/"+ "tel/" + ID} key={"tel", ID}>ทำเอกสาร</Link>
+        }
+
+        if (branch.statusTel === 'Success'){
+          status4 = "เสร็จสิ้น"
+          style4 = "green-text"
+        }else {
+          status4 = <Link to={"/docchange/"+ "change/" + ID} key={"change", ID}>ทำเอกสาร</Link>
+        }
       }else {
         status1 = <Link to={"/docopen/"+ "open/" + ID} key={"open", ID}>ทำเอกสาร</Link>
       }
@@ -88,12 +104,12 @@ const Right = ({ ID, branch }) => {
 
         <div className="row">
           <div className="col">เบิกโทรศัพท์</div>
-          <div className={"col right " + style2}>{status3}</div>
+          <div className={"col right " + style3}>{status3}</div>
         </div>
 
         <div className="row">
           <div className="col">เบิกเงินสำรองทอน</div>
-          <div className={"col right " + style2}>{status4}</div>
+          <div className={"col right " + style4}>{status4}</div>
         </div>
       </div>
     );

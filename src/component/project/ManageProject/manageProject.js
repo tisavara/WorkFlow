@@ -9,7 +9,7 @@ class Now extends Component {
   state = {
     branchId: "",
     num: ''
-  };
+  }
   render() {
     const { branchs, auth, profile } = this.props;
     const ID = this.state.branchId;
@@ -34,16 +34,20 @@ class Now extends Component {
 
               {branchs &&
                 branchs.map((branch, i) => {
-
                   let Status
                   let style
                   if(branch.statusCost) {
                     Status = "เปิด Cost center"
                     style='red'
                     if (branch.statusCost === 'Success') {
-                      Status = "เปิด Cost center สำเร็จ!!"
-                      if (branch.statusInsure === 'noInsure') {
-                        Status = "ประกัน กำลังดำเนินการ"
+                      Status = "อยู่ในขั้นตอน ประกัน, เบิกโทรศัพท์, เบิกเงิน"
+                      if (branch.statusInsure === 'Success' && branch.statusTel !== 'Success'){
+                        Status = "อยู่ในขั้นตอน เบิกโทรศัพท์, เบิกเงิน"
+                      }else if (branch.statusTel === 'Success' && branch.statusInsure !== 'Success'){
+                        Status = "อยู่ในขั้นตอน ประกัน"
+                      }else if (branch.statusTel === 'Success' && branch.statusInsure === 'Success'){
+                        Status = "สำเร็จ"
+                        style='green'
                       }
                     }
                   }else {
